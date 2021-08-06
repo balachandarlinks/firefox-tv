@@ -116,9 +116,6 @@ class WebRenderFragment : EngineViewLifecycleFragment(), Session.Observer {
                 serviceLocator?.experimentsProvider?.shouldUseMp4VideoWorkaround() == true) {
             engineView?.updateFullscreenScrollPosition()
         }
-
-        val bannerLayout: View = window.findViewById(R.id.bannerLayout)
-        bannerLayout.isGone = enabled
     }
 
     override fun onUrlChanged(session: Session, url: String) {
@@ -155,16 +152,6 @@ class WebRenderFragment : EngineViewLifecycleFragment(), Session.Observer {
             context.serviceLocator.cursorModel.screenBounds = PointF(right.toFloat(), bottom.toFloat())
         }
         context.serviceLocator.cursorModel.webViewCouldScrollInDirectionProvider = layout.engineView::couldScrollInDirection
-
-        // Setup the banner
-
-        val bannerLayout: View = layout.findViewById(R.id.bannerLayout)
-
-        val moreInfoButton: Button = bannerLayout.findViewById(R.id.bannerMoreInfoButton)
-        moreInfoButton.setOnClickListener {
-            (activity as MainActivity).onNonTextInputUrlEntered(SupportUtils.getSumoURLForTopic(this.context, "amazon-end-support"))
-            context?.serviceLocator?.screenController?.showNavigationOverlay(fragmentManager, false)
-        }
 
         layout.progressBar.initialize(this)
 
